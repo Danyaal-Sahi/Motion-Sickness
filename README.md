@@ -13,7 +13,7 @@ Menu bar utility for Apple Silicon Macs that overlays subtle edge dots which mov
 
 ## Run (macOS)
 ```bash
-cd "/Users/danyaalsahi/Documents/Motion Sickness"
+cd "Motion-Sickness"
 swift run
 ```
 
