@@ -18,12 +18,21 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         bindModel()
 
         overlayController?.applyVisibility(isVisible: model.isEnabled)
+
+        // Make the app discoverable even if the menu bar icon is hidden (fullscreen, notched Macs, etc.).
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { [weak self] in
+            self?.openSettings()
+        }
     }
 
     private func setupStatusItem() {
-        let item = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
+        let item = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
         if let button = item.button {
-            button.image = NSImage(systemSymbolName: "dot.radiowaves.left.and.right", accessibilityDescription: "Motion Cues")
+            let image = NSImage(systemSymbolName: "dot.radiowaves.left.and.right", accessibilityDescription: "Motion Cues")
+            button.image = image
+            if image == nil {
+                button.title = "MC"
+            }
             button.toolTip = "Motion Cues"
         }
 
